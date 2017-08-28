@@ -3,8 +3,9 @@
 
 using namespace any;
 
+template <typename T>
 void test(AnyItem item) {
-	std::cout << "Hello World " << item.asType<int>() << std::endl;
+	std::cout << "Hello World " << item.asType<T>() << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -13,7 +14,10 @@ int main(int argc, char** argv) {
 	//AnyItem item(ValueItem<int>(3));
 	AnyItem item = ValueItem<int>(3);
 
-	test(ValueItem<int>(4));
+	test<double>(item);
+	test<std::string>(ValueItem<std::string>("abc"));
+
+	std::cout << item << std::endl;
 
 	/*AnyItem item;
 	ValueItem<int> item2(3);

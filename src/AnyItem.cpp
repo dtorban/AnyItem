@@ -27,12 +27,20 @@ AnyItem::~AnyItem() {
 }
 
 std::vector<AnyItem> AnyItem::asArray() const {
+	static std::vector<AnyItem> items;
+	return items;
 }
 
 void AnyItem::set(const std::string& key, AnyItem item) {
+	if (impl != NULL && state != NULL) {
+		impl->set(key, item, state);
+	}
 }
 
 void AnyItem::remove(const std::string& key) {
+	if (impl != NULL && state != NULL) {
+		impl->remove(key, state);
+	}
 }
 
 std::vector<std::string> AnyItem::getKeys() const {
@@ -45,6 +53,7 @@ std::vector<std::string> AnyItem::getKeys() const {
 }
 
 AnyItem AnyItem::operator [](const std::string& key) const {
+	return impl->getItem(key, state);
 }
 
 AnyItem AnyItem::operator =(const AnyItem& item) {
@@ -58,6 +67,16 @@ AnyItem AnyItem::operator =(const AnyItem& item) {
 
 void* AnyItem::getValue() const {
 	return impl->getValue(state);
+}
+
+std::ostream& operator<<(std::ostream& stream, const AnyItem& item) {
+	item.impl->write(stream, item.state);
+	return stream;
+}
+
+std::istream& operator>>(std::istream& stream, AnyItem& item) {
+	item.impl->read(stream, item.state);
+	return stream;
 }
 
 } /* namespace any */

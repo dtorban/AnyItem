@@ -12,7 +12,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <sstream>
 
 namespace any {
 
@@ -25,7 +25,7 @@ public:
 	virtual ~AnyItem();
 
 	template <typename T>
-	T asType() const;
+	T asType(T defaultValue = T()) const;
 	std::vector<AnyItem> asArray() const;
 	void set(const std::string& key, AnyItem item);
 	void remove(const std::string& key);
@@ -33,8 +33,8 @@ public:
 
 	AnyItem operator[](const std::string& key) const;
 	AnyItem operator=(const AnyItem& item);
-	friend std::ostream& operator<< (std::ostream& stream, AnyItem& resource);
-	friend std::istream& operator>> (std::istream& stream, AnyItem& resource);
+	friend std::ostream& operator<<(std::ostream& stream, const AnyItem& item);
+	friend std::istream& operator>> (std::istream& stream, AnyItem& item);
 
 private:
 	void* getValue() const;
@@ -54,7 +54,20 @@ public:
 } /* namespace any */
 
 template<typename T>
-inline T any::AnyItem::asType() const {
+inline T any::AnyItem::asType(T defaultValue) const {
+	std::stringstream ss;
+	ss << *this;
+	std::istringstream is(ss.str().c_str());
+
+	T val;
+	is >> val;
+	if (!is) {
+		return defaultValue;
+	}
+	else {
+		return val;
+	}
+
 	return *(T*)this->getValue();
 }
 
