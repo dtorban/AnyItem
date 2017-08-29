@@ -9,9 +9,7 @@ void test(AnyItem item) {
 }
 
 int main(int argc, char** argv) {
-	//AnyItem item3;
-	//ValueItem<int> item2(4);
-	//AnyItem item(ValueItem<int>(3));
+	AnyItem v = ValueItem<char>('a');
 	ValueItem<int> item(3);
 	item = 4;
 
@@ -25,16 +23,5 @@ int main(int argc, char** argv) {
 
 	std::cout << *item2.asType<int*>() << " " << item2 << std::endl;
 
-	/*AnyItem item;
-	ValueItem<int> item2(3);
-	item = item2;*/
-
-	//ValueItem<int> item(3);
-	//item = item2;
-
-	//item.getValue();
-	//std::cout << "Hello World." << std::endl;
-	//std::cout << item.asType<int>() << std::endl;
-	//std::cout <<" " << item2.asType<int>() << std::endl;
 	return 0;
 }
