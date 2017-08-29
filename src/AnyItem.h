@@ -32,11 +32,13 @@ public:
 	std::vector<std::string> getKeys() const;
 
 	AnyItem operator[](const std::string& key) const;
-	AnyItem operator=(const AnyItem& item);
+	template <typename T>
+	void operator=(const T& item);
 	friend std::ostream& operator<<(std::ostream& stream, const AnyItem& item);
 	friend std::istream& operator>> (std::istream& stream, AnyItem& item);
 
 private:
+	void copy(const AnyItem& item);
 	void* getValue() const;
 
 protected:
@@ -47,29 +49,60 @@ private:
 	long sanityCheck;
 	static long getSanityCheckValue() { return 103; }
 
-public:
-	int id;
+	template<typename T>
+	struct AnyItemAsTypeHelper {
+		static T asType(const any::AnyItem& anyItem, T defaultValue) {
+			std::stringstream ss;
+			ss << anyItem;
+			std::istringstream is(ss.str().c_str());
+
+			T val;
+			is >> val;
+			if (!is) {
+				return defaultValue;
+			}
+			else {
+				return val;
+			}
+		}
+	};
+
+	template<typename T>
+	struct AnyItemAsTypeHelper<T*> : AnyItemAsTypeHelper<T> {
+		static T* asType(const any::AnyItem& anyItem, T* defaultValue) {
+			return *(T**)anyItem.getValue();
+		}
+	};
 };
 
 } /* namespace any */
 
 template<typename T>
 inline T any::AnyItem::asType(T defaultValue) const {
-	std::stringstream ss;
-	ss << *this;
-	std::istringstream is(ss.str().c_str());
-
-	T val;
-	is >> val;
-	if (!is) {
-		return defaultValue;
-	}
-	else {
-		return val;
-	}
-
-	return *(T*)this->getValue();
+	return any::AnyItem::AnyItemAsTypeHelper<T>::asType(*this, defaultValue);
 }
 
+#include "AnyItemImpl.h"
+#include "impl/ValueItem.h"
+
+template <typename T>
+struct ValueItemConverter {
+	static any::AnyItem getAnyItem(const T &val) {
+		return any::ValueItem<T>(val);
+	}
+};
+
+template <>
+struct ValueItemConverter<any::AnyItem> {
+	static any::AnyItem getAnyItem(const any::AnyItem &val) {
+		return val;
+	}
+};
+
+template <typename T>
+inline void any::AnyItem::operator=(const T& val) {
+	AnyItem item = ValueItemConverter<T>::getAnyItem(val);
+	copy(item);
+}
 
 #endif /* ANYITEM_H_ */

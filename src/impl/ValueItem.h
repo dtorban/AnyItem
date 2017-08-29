@@ -9,9 +9,9 @@
 #ifndef VALUEITEM_H_
 #define VALUEITEM_H_
 
-#include "AnyItemImpl.h"
-
 namespace any {
+
+
 
 template <typename T>
 class ValueItemImpl : public AnyItemImpl {
@@ -39,6 +39,10 @@ public:
 	}
 
 	virtual ~ValueItem() {
+	}
+
+	void operator=(T val) {
+		state = impl->copyItem(&val);
 	}
 };
 

@@ -9,12 +9,13 @@
 #ifndef ANYITEMIMPL_H_
 #define ANYITEMIMPL_H_
 
-#include "AnyItem.h"
 #include <string>
 #include <iostream>
 #include <typeinfo>
 
 namespace any {
+
+class AnyItem;
 
 class AnyItemImpl {
 public:

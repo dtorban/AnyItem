@@ -16,7 +16,7 @@ AnyItem::AnyItem() : state(NULL), impl(NULL) {
 }
 
 AnyItem::AnyItem(const AnyItem& item) : state(NULL), impl(NULL) {
-	*this = item;
+	copy(item);
 	sanityCheck = getSanityCheckValue();
 }
 
@@ -56,7 +56,7 @@ AnyItem AnyItem::operator [](const std::string& key) const {
 	return impl->getItem(key, state);
 }
 
-AnyItem AnyItem::operator =(const AnyItem& item) {
+void AnyItem::copy(const AnyItem& item) {
 	if (impl != NULL && state != NULL) {
 		impl->deleteItem(state);
 	}
