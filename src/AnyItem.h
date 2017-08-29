@@ -85,6 +85,8 @@ inline T any::AnyItem::asType(T defaultValue) const {
 #include "AnyItemImpl.h"
 #include "impl/ValueItem.h"
 
+namespace any {
+
 template <typename T>
 struct ValueItemConverter {
 	static any::AnyItem getAnyItem(const T &val) {
@@ -98,10 +100,11 @@ struct ValueItemConverter<any::AnyItem> {
 		return val;
 	}
 };
+}
 
 template <typename T>
 inline void any::AnyItem::operator=(const T& val) {
-	AnyItem item = ValueItemConverter<T>::getAnyItem(val);
+	AnyItem item = any::ValueItemConverter<T>::getAnyItem(val);
 	copy(item);
 }
 

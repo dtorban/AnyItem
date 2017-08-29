@@ -7,7 +7,6 @@
  */
 
 #include "AnyItem.h"
-#include "AnyItemImpl.h"
 
 namespace any {
 
