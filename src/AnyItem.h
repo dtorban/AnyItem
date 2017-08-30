@@ -27,7 +27,7 @@ public:
 	template <typename T>
 	T asType(T defaultValue = T()) const;
 	std::vector<AnyItem> asArray() const;
-	void set(const std::string& key, AnyItem item);
+	void set(const std::string& key, const AnyItem& item);
 	void remove(const std::string& key);
 	std::vector<std::string> getKeys() const;
 

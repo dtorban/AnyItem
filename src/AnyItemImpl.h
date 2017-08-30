@@ -30,7 +30,7 @@ public:
 	virtual void remove(const std::string& key, void* state) const = 0;
 	virtual void* getValue(void* state) const = 0;
 	virtual void write(std::ostream& out, const void* state) const = 0;
-	virtual void read(std::istream& in, const void* state) const = 0;
+	virtual void read(std::istream& in, void* state) const = 0;
 	virtual const std::type_info& getType() const = 0;
 };
 

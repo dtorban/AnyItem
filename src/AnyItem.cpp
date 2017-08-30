@@ -7,20 +7,21 @@
  */
 
 #include "AnyItem.h"
+#include "impl/BlankItem.h"
 
 namespace any {
 
-AnyItem::AnyItem() : state(NULL), impl(NULL) {
+AnyItem::AnyItem() : state(NULL), impl(BlankItemImpl::instance()) {
 	sanityCheck = getSanityCheckValue();
 }
 
-AnyItem::AnyItem(const AnyItem& item) : state(NULL), impl(NULL) {
+AnyItem::AnyItem(const AnyItem& item) : state(NULL), impl(BlankItemImpl::instance()) {
 	copy(item);
 	sanityCheck = getSanityCheckValue();
 }
 
 AnyItem::~AnyItem() {
-	if (impl != NULL && state != NULL && sanityCheck == getSanityCheckValue()) {
+	if (sanityCheck == getSanityCheckValue()) {
 		impl->deleteItem(state);
 	}
 }
@@ -30,35 +31,31 @@ std::vector<AnyItem> AnyItem::asArray() const {
 	return items;
 }
 
-void AnyItem::set(const std::string& key, AnyItem item) {
-	if (impl != NULL && state != NULL) {
-		impl->set(key, item, state);
-	}
+void AnyItem::set(const std::string& key, const AnyItem& item) {
+	impl->set(key, item, state);
 }
 
 void AnyItem::remove(const std::string& key) {
-	if (impl != NULL && state != NULL) {
-		impl->remove(key, state);
-	}
+	impl->remove(key, state);
 }
 
 std::vector<std::string> AnyItem::getKeys() const {
-	if (impl != NULL && state != NULL) {
-		return impl->getKeys(state);
-	}
+	return impl->getKeys(state);
 
 	static std::vector<std::string> keys;
 	return keys;
 }
 
 AnyItem AnyItem::operator [](const std::string& key) const {
-	return impl->getItem(key, state);
+	if (impl != NULL && state != NULL) {
+		return impl->getItem(key, state);
+	}
+
+	return BlankItem::instance();
 }
 
 void AnyItem::copy(const AnyItem& item) {
-	if (impl != NULL && state != NULL) {
-		impl->deleteItem(state);
-	}
+	impl->deleteItem(state);
 
 	impl = item.impl;
 	state = impl->copyItem(item.state);

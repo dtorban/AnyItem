@@ -23,7 +23,7 @@ public:
 	std::vector<std::string> getKeys(void* state) const;
 	void* getValue(void* state) const;
 	void write(std::ostream& out, const void* state) const;
-	void read(std::istream& in, const void* state) const;
+	void read(std::istream& in, void* state) const;
 	void set(const std::string& key, const AnyItem& item, void* state) const;
 	void remove(const std::string& key, void* state) const;
 	const std::type_info& getType() const;
@@ -90,7 +90,7 @@ inline void any::ValueItemImpl<T>::write(std::ostream& out,
 
 template<typename T>
 inline void any::ValueItemImpl<T>::read(std::istream& in,
-		const void* state) const {
+		void* state) const {
 }
 
 template<typename T>

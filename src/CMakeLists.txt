@@ -9,6 +9,7 @@ include_directories(src)
 set (${PROJECT_NAME}_cpp
   main.cpp
   AnyItem.cpp
+  impl/BlankItem.cpp
 )
 set (${PROJECT_NAME}_h
 )
