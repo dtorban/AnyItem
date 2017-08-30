@@ -26,23 +26,25 @@ int main(int argc, char** argv) {
 	//std::cout << item2["this"]["is"]["a"].asType<std::string>("test") << std::endl;
 
 	AnyItem item3;
-	item3.set("again", 1);
-	item3.set("again", std::string("test"));
-	item3.set("again2", std::string("test2"));
-	item3.set("again", std::string("what"));
+	item3["again"] = 1;
+	item3["again"] = std::string("test");
+	item3["again2"] = std::string("what");
+	item3["again"] = std::string("test2");
 	item3["test"]["again"] = std::string("bed");
-	item3["test"]["again"] = std::string("bed2");
-	item3["test"] = 3;
+	item3["test"]["again"] = 3.14;
 	item3.set("blah", new int(23));
 
 	item3.set("AnyType", AnyItem());
-	item3["AnyType"].set("that", 7);
+	item3["AnyType"]["that"] = 7;
+	item3["AnyType"]["this"] = 24;
 
 
 	std::vector<std::string> keys = item3.getKeys();
 	for (int f = 0; f < keys.size(); f++) {
 		std::cout << "\t" << keys[f] << ": " << item3[keys[f]] << std::endl;
 	}
+
+	std::cout << item3 << std::endl;
 
 	std::cout << item3["AnyType"]["that"] << std::endl;
 	std::cout << item3["test"]["again"] << std::endl;

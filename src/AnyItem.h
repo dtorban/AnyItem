@@ -33,7 +33,7 @@ public:
 	void remove(const std::string& key);
 	std::vector<std::string> getKeys() const;
 
-	AnyItem& operator[](const std::string& key) const;
+	AnyItem& operator[](const std::string& key);
 	template <typename T>
 	void operator=(const T& item);
 	friend std::ostream& operator<<(std::ostream& stream, const AnyItem& item);
@@ -94,6 +94,13 @@ template <typename T>
 struct ValueItemConverter {
 	static any::ValueItem<T> getAnyItem(const T &val) {
 		return any::ValueItem<T>(val);
+	}
+};
+
+template <>
+struct ValueItemConverter<char*> {
+	static any::AnyItem getAnyItem(const char* val) {
+		return any::ValueItem<std::string>(std::string(val));
 	}
 };
 

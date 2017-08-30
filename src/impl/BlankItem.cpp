@@ -39,9 +39,8 @@ AnyItem& BlankItemImpl::getItem(const std::string& key,
 	return BlankItem::instance();
 }
 
-std::vector<std::string> BlankItemImpl::getKeys(void* state) const {
-	static std::vector<std::string> empty;
-	return empty;
+std::vector<std::string> BlankItemImpl::getKeys(const void* state) const {
+	return std::vector<std::string>();
 }
 
 void* BlankItemImpl::getValue(void* state) const {

@@ -20,7 +20,7 @@ public:
 	void copyItem(void* state, void* newState) const;
 	void deleteItem(void* state) const;
 	AnyItem& getItem(const std::string& key, void* state) const;
-	std::vector<std::string> getKeys(void* state) const;
+	std::vector<std::string> getKeys(const void* state) const;
 	void* getValue(void* state) const;
 	void write(std::ostream& out, const void* state) const;
 	void read(std::istream& in, void* state) const;
@@ -72,9 +72,8 @@ inline any::AnyItem& any::ValueItemImpl<T>::getItem(const std::string& key,
 
 template<typename T>
 inline std::vector<std::string> any::ValueItemImpl<T>::getKeys(
-		void* state) const {
-	static std::vector<std::string> keys;
-	return keys;
+		const void* state) const {
+	return std::vector<std::string>();
 }
 
 template<typename T>

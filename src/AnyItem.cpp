@@ -56,7 +56,12 @@ std::vector<std::string> AnyItem::getKeys() const {
 	return impl->getKeys(state);
 }
 
-AnyItem& AnyItem::operator [](const std::string& key) const {
+AnyItem& AnyItem::operator [](const std::string& key) {
+	if (impl == BlankItemImpl::instance()) {
+		impl = DictionaryItemImpl::instance();
+		state = impl->createItem();
+	}
+
 	return impl->getItem(key, state);
 }
 

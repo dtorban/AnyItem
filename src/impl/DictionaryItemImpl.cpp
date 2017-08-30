@@ -40,10 +40,10 @@ AnyItem& DictionaryItemImpl::getItem(const std::string& key,
 	}
 }
 
-std::vector<std::string> DictionaryItemImpl::getKeys(void* state) const {
-	std::map<std::string, AnyItem>& dict = static_cast<SimpleMap*>(state)->map;
+std::vector<std::string> DictionaryItemImpl::getKeys(const void* state) const {
+	const std::map<std::string, AnyItem>& dict = static_cast<const SimpleMap*>(state)->map;
 	std::vector<std::string> v;
-	for(std::map<std::string, AnyItem>::iterator it = dict.begin(); it != dict.end(); ++it) {
+	for(std::map<std::string, AnyItem>::const_iterator it = dict.begin(); it != dict.end(); ++it) {
 		v.push_back(it->first);
 	}
 
@@ -56,6 +56,19 @@ void* DictionaryItemImpl::getValue(void* state) const {
 
 void DictionaryItemImpl::write(std::ostream& out,
 		const void* state) const {
+
+	const std::map<std::string, AnyItem>& dict = static_cast<const SimpleMap*>(state)->map;
+	std::vector<std::string> keys = getKeys(state);
+	out << "{";
+	for (int f = 0; f < keys.size(); f++) {
+		if (f != 0) {
+			out << ",";
+		}
+		out <<"\"" << keys[f] << "\":";
+		std::map<std::string, AnyItem>::const_iterator it = dict.find(keys[f]);
+		out << it->second;
+	}
+	out << "}";
 }
 
 void DictionaryItemImpl::read(std::istream& in, void* state) const {

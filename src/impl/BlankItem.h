@@ -19,7 +19,7 @@ public:
 	void copyItem(void* state, void* newState) const;
 	void deleteItem(void* state) const;
 	AnyItem& getItem(const std::string& key, void* state) const;
-	std::vector<std::string> getKeys(void* state) const;
+	std::vector<std::string> getKeys(const void* state) const;
 	void* getValue(void* state) const;
 	void write(std::ostream& out, const void* state) const;
 	void read(std::istream& in, void* state) const;
