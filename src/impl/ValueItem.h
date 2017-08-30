@@ -17,9 +17,9 @@ template <typename T>
 class ValueItemImpl : public AnyItemImpl {
 public:
 	void* createItem() const;
-	void* copyItem(void* state) const;
+	void copyItem(void* state, void* newState) const;
 	void deleteItem(void* state) const;
-	AnyItem getItem(const std::string& key, const void* state) const;
+	AnyItem& getItem(const std::string& key, void* state) const;
 	std::vector<std::string> getKeys(void* state) const;
 	void* getValue(void* state) const;
 	void write(std::ostream& out, const void* state) const;
@@ -33,16 +33,15 @@ public:
 template <typename T>
 class ValueItem : public AnyItem {
 public:
-	ValueItem(T value) {
-		impl = ValueItemImpl<T>::instance();
-		state = impl->copyItem(&value);
+	ValueItem(T value) : AnyItem(ValueItemImpl<T>::instance()) {
+		impl->copyItem(&value, state);
 	}
 
 	virtual ~ValueItem() {
 	}
 
 	void operator=(T val) {
-		state = impl->copyItem(&val);
+		impl->copyItem(&val, state);
 	}
 };
 
@@ -54,10 +53,9 @@ inline void* any::ValueItemImpl<T>::createItem() const {
 }
 
 template<typename T>
-inline void* any::ValueItemImpl<T>::copyItem(void* state) const {
-	T* newVal = (T*)createItem();
+inline void any::ValueItemImpl<T>::copyItem(void* state, void* newState) const {
+	T* newVal = (T*)newState;
 	*newVal = *(T*)state;
-	return newVal;
 }
 
 template<typename T>
@@ -66,8 +64,10 @@ inline void any::ValueItemImpl<T>::deleteItem(void* state) const {
 }
 
 template<typename T>
-inline any::AnyItem any::ValueItemImpl<T>::getItem(const std::string& key,
-		const void* state) const {
+inline any::AnyItem& any::ValueItemImpl<T>::getItem(const std::string& key,
+		void* state) const {
+	static AnyItem item;
+	return item;
 }
 
 template<typename T>

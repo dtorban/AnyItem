@@ -21,17 +21,19 @@ class AnyItemImpl;
 class AnyItem {
 public:
 	AnyItem();
+	AnyItem(AnyItemImpl* impl);
 	AnyItem(const AnyItem& item);
 	virtual ~AnyItem();
 
 	template <typename T>
 	T asType(T defaultValue = T()) const;
 	std::vector<AnyItem> asArray() const;
-	void set(const std::string& key, const AnyItem& item);
+	template <typename T>
+	void set(const std::string& key, const T& val);
 	void remove(const std::string& key);
 	std::vector<std::string> getKeys() const;
 
-	AnyItem operator[](const std::string& key) const;
+	AnyItem& operator[](const std::string& key) const;
 	template <typename T>
 	void operator=(const T& item);
 	friend std::ostream& operator<<(std::ostream& stream, const AnyItem& item);
@@ -39,6 +41,7 @@ public:
 
 private:
 	void copy(const AnyItem& item);
+	virtual void setValue(const std::string& key, const AnyItem& item);
 	void* getValue() const;
 
 protected:
@@ -89,7 +92,7 @@ namespace any {
 
 template <typename T>
 struct ValueItemConverter {
-	static any::AnyItem getAnyItem(const T &val) {
+	static any::ValueItem<T> getAnyItem(const T &val) {
 		return any::ValueItem<T>(val);
 	}
 };
@@ -106,6 +109,12 @@ template <typename T>
 inline void any::AnyItem::operator=(const T& val) {
 	AnyItem item = any::ValueItemConverter<T>::getAnyItem(val);
 	copy(item);
+}
+
+template <typename T>
+inline void any::AnyItem::set(const std::string& key, const T& val) {
+	AnyItem item = any::ValueItemConverter<T>::getAnyItem(val);
+	setValue(key, item);
 }
 
 #endif /* ANYITEM_H_ */

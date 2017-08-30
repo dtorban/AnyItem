@@ -28,15 +28,14 @@ void* BlankItemImpl::createItem() const {
 	return NULL;
 }
 
-void* BlankItemImpl::copyItem(void* state) const {
-	return NULL;
+void BlankItemImpl::copyItem(void* state, void* newState) const {
 }
 
 void BlankItemImpl::deleteItem(void* state) const {
 }
 
-AnyItem BlankItemImpl::getItem(const std::string& key,
-		const void* state) const {
+AnyItem& BlankItemImpl::getItem(const std::string& key,
+		void* state) const {
 	return BlankItem::instance();
 }
 

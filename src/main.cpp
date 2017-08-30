@@ -23,5 +23,31 @@ int main(int argc, char** argv) {
 
 	std::cout << *item2.asType<int*>() << " " << item2 << std::endl;
 
+	//std::cout << item2["this"]["is"]["a"].asType<std::string>("test") << std::endl;
+
+	AnyItem item3;
+	item3.set("again", 1);
+	item3.set("again", std::string("test"));
+	item3.set("again2", std::string("test2"));
+	item3.set("again", std::string("what"));
+	item3["test"]["again"] = std::string("bed");
+	item3["test"]["again"] = std::string("bed2");
+	item3["test"] = 3;
+	item3.set("blah", new int(23));
+
+	item3.set("AnyType", AnyItem());
+	item3["AnyType"].set("that", 7);
+
+
+	std::vector<std::string> keys = item3.getKeys();
+	for (int f = 0; f < keys.size(); f++) {
+		std::cout << "\t" << keys[f] << ": " << item3[keys[f]] << std::endl;
+	}
+
+	std::cout << item3["AnyType"]["that"] << std::endl;
+	std::cout << item3["test"]["again"] << std::endl;
+
+	std::cout << *item3["blah"].asType<int*>() << std::endl;
+
 	return 0;
 }

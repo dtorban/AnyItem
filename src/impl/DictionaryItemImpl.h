@@ -6,14 +6,15 @@
  * 		Dan Orban (dtorban)
  */
 
-#ifndef BLANKITEM_H_
-#define BLANKITEM_H_
+#ifndef DICTIONARYITEMIMPL_H_
+#define DICTIONARYITEMIMPL_H_
 
-#include "AnyItem.h"
+#include "AnyItemImpl.h"
+#include <map>
 
 namespace any {
 
-class BlankItemImpl : public AnyItemImpl {
+class DictionaryItemImpl : public AnyItemImpl {
 public:
 	void* createItem() const;
 	void copyItem(void* state, void* newState) const;
@@ -29,14 +30,6 @@ public:
 	static AnyItemImpl* instance();
 };
 
-class BlankItem : public AnyItem {
-public:
-	virtual ~BlankItem();
-	static AnyItem& instance();
-private:
-	BlankItem();
-};
-
 } /* namespace any */
 
-#endif /* BLANKITEM_H_ */
+#endif /* DICTIONARYITEMIMPL_H_ */

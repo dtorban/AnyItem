@@ -8,14 +8,22 @@
 
 #include "AnyItem.h"
 #include "impl/BlankItem.h"
+#include "impl/DictionaryItemImpl.h"
 
 namespace any {
 
-AnyItem::AnyItem() : state(NULL), impl(BlankItemImpl::instance()) {
+AnyItem::AnyItem() : impl(BlankItemImpl::instance()) {
+	state = impl->createItem();
 	sanityCheck = getSanityCheckValue();
 }
 
-AnyItem::AnyItem(const AnyItem& item) : state(NULL), impl(BlankItemImpl::instance()) {
+AnyItem::AnyItem(AnyItemImpl* impl) : impl(impl) {
+	state = impl->createItem();
+	sanityCheck = getSanityCheckValue();
+}
+
+AnyItem::AnyItem(const AnyItem& item) : impl(BlankItemImpl::instance()) {
+	state = impl->createItem();
 	copy(item);
 	sanityCheck = getSanityCheckValue();
 }
@@ -31,7 +39,12 @@ std::vector<AnyItem> AnyItem::asArray() const {
 	return items;
 }
 
-void AnyItem::set(const std::string& key, const AnyItem& item) {
+void AnyItem::setValue(const std::string& key, const AnyItem& item) {
+	if (impl == BlankItemImpl::instance()) {
+		impl = DictionaryItemImpl::instance();
+		state = impl->createItem();
+	}
+
 	impl->set(key, item, state);
 }
 
@@ -41,24 +54,18 @@ void AnyItem::remove(const std::string& key) {
 
 std::vector<std::string> AnyItem::getKeys() const {
 	return impl->getKeys(state);
-
-	static std::vector<std::string> keys;
-	return keys;
 }
 
-AnyItem AnyItem::operator [](const std::string& key) const {
-	if (impl != NULL && state != NULL) {
-		return impl->getItem(key, state);
-	}
-
-	return BlankItem::instance();
+AnyItem& AnyItem::operator [](const std::string& key) const {
+	return impl->getItem(key, state);
 }
 
 void AnyItem::copy(const AnyItem& item) {
 	impl->deleteItem(state);
 
 	impl = item.impl;
-	state = impl->copyItem(item.state);
+	state = impl->createItem();
+	impl->copyItem(item.state, state);
 }
 
 void* AnyItem::getValue() const {

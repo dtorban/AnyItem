@@ -10,6 +10,7 @@ set (${PROJECT_NAME}_cpp
   main.cpp
   AnyItem.cpp
   impl/BlankItem.cpp
+  impl/DictionaryItemImpl.cpp
 )
 set (${PROJECT_NAME}_h
 )
