@@ -37,6 +37,8 @@ public:
 	friend std::ostream& operator<<(std::ostream& stream, const AnyItem& item);
 	friend std::istream& operator>> (std::istream& stream, AnyItem& item);
 
+	static AnyItem& blank();
+
 private:
 	void copy(const AnyItem& item);
 	void* getValue() const;

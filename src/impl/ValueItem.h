@@ -11,8 +11,6 @@
 
 namespace any {
 
-
-
 template <typename T>
 class ValueItemImpl : public AnyItemImpl {
 public:
@@ -65,8 +63,7 @@ inline void any::ValueItemImpl<T>::deleteItem(void* state) const {
 template<typename T>
 inline any::AnyItem& any::ValueItemImpl<T>::getItem(const std::string& key,
 		void* state) const {
-	static AnyItem item;
-	return item;
+	return AnyItem::blank();
 }
 
 template<typename T>

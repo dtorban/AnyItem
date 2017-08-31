@@ -74,6 +74,10 @@ void* AnyItem::getValue() const {
 	return impl->getValue(state);
 }
 
+AnyItem& AnyItem::blank() {
+	return BlankItem::instance();
+}
+
 std::ostream& operator<<(std::ostream& stream, const AnyItem& item) {
 	item.impl->write(stream, item.state);
 	return stream;
@@ -83,6 +87,7 @@ std::istream& operator>>(std::istream& stream, AnyItem& item) {
 	item.impl->read(stream, item.state);
 	return stream;
 }
+
 
 } /* namespace any */
 
