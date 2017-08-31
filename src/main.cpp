@@ -1,5 +1,6 @@
 #include <iostream>
 #include "AnyItem.h"
+#include "impl/BlankItem.h"
 
 using namespace any;
 
@@ -37,6 +38,10 @@ int main(int argc, char** argv) {
 	item3["AnyType"] = AnyItem();
 	item3["AnyType"]["that"] = 7;
 	item3["AnyType"]["this"] = 24;
+
+	BlankItem::instance()["test"] = 5;
+
+	std::cout << BlankItem::instance() << std::endl;
 
 	AnyItem item5 = item3;
 

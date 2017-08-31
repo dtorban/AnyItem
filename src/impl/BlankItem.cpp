@@ -18,6 +18,7 @@ AnyItem& BlankItem::instance() {
 BlankItem::BlankItem() {
 	impl = BlankItemImpl::instance();
 	state = NULL;
+	readOnly = true;
 }
 
 BlankItem::~BlankItem() {

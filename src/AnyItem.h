@@ -44,6 +44,7 @@ private:
 protected:
 	void* state;
 	AnyItemImpl* impl;
+	bool readOnly;
 
 private:
 	long sanityCheck;
