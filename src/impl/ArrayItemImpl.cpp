@@ -76,7 +76,18 @@ AnyItem& ArrayItemImpl::getItem(int index, void* state) const {
 
 void ArrayItemImpl::remove(int index, void* state) const {
 	std::vector<AnyItem>& v = *static_cast<std::vector<AnyItem>*>(state);
-	v.erase(v.begin() + index);
+
+	std::vector<AnyItem> newArray;
+	for (int f = 0; f < v.size(); f++) {
+		if (f != index) {
+			newArray.push_back(v[f]);
+		}
+	}
+
+	v.clear();
+	for (int f = 0; f < newArray.size(); f++) {
+		v.push_back(newArray[f]);
+	}
 }
 
 int ArrayItemImpl::size(void* state) const {

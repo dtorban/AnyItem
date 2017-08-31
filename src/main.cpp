@@ -47,7 +47,10 @@ int main(int argc, char** argv) {
 
 	AnyItem item5 = item3;
 
-	item5["items"][3][1] = 55;
+	item5.remove("blah");
+
+	item5["items"].remove(2);
+	item5["items"][2][1] = 55;
 
 	std::vector<std::string> keys = item3.getKeys();
 	for (int f = 0; f < keys.size(); f++) {
