@@ -39,15 +39,6 @@ std::vector<AnyItem> AnyItem::asArray() const {
 	return items;
 }
 
-void AnyItem::setValue(const std::string& key, const AnyItem& item) {
-	if (impl == BlankItemImpl::instance()) {
-		impl = DictionaryItemImpl::instance();
-		state = impl->createItem();
-	}
-
-	impl->set(key, item, state);
-}
-
 void AnyItem::remove(const std::string& key) {
 	impl->remove(key, state);
 }

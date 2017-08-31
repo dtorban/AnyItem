@@ -28,8 +28,6 @@ public:
 	template <typename T>
 	T asType(T defaultValue = T()) const;
 	std::vector<AnyItem> asArray() const;
-	template <typename T>
-	void set(const std::string& key, const T& val);
 	void remove(const std::string& key);
 	std::vector<std::string> getKeys() const;
 
@@ -41,7 +39,6 @@ public:
 
 private:
 	void copy(const AnyItem& item);
-	virtual void setValue(const std::string& key, const AnyItem& item);
 	void* getValue() const;
 
 protected:
@@ -116,12 +113,6 @@ template <typename T>
 inline void any::AnyItem::operator=(const T& val) {
 	AnyItem item = any::ValueItemConverter<T>::getAnyItem(val);
 	copy(item);
-}
-
-template <typename T>
-inline void any::AnyItem::set(const std::string& key, const T& val) {
-	AnyItem item = any::ValueItemConverter<T>::getAnyItem(val);
-	setValue(key, item);
 }
 
 #endif /* ANYITEM_H_ */

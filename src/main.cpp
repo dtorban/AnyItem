@@ -32,19 +32,23 @@ int main(int argc, char** argv) {
 	item3["again"] = std::string("test2");
 	item3["test"]["again"] = std::string("bed");
 	item3["test"]["again"] = 3.14;
-	item3.set("blah", new int(23));
+	item3["blah"] = new int(23);
 
-	item3.set("AnyType", AnyItem());
+	item3["AnyType"] = AnyItem();
 	item3["AnyType"]["that"] = 7;
 	item3["AnyType"]["this"] = 24;
 
+	AnyItem item5 = item3;
 
 	std::vector<std::string> keys = item3.getKeys();
 	for (int f = 0; f < keys.size(); f++) {
 		std::cout << "\t" << keys[f] << ": " << item3[keys[f]] << std::endl;
 	}
 
+	item5["AnyType"]["this"] = 27;
+
 	std::cout << item3 << std::endl;
+	std::cout << item5 << std::endl;
 
 	std::cout << item3["AnyType"]["that"] << std::endl;
 	std::cout << item3["test"]["again"] << std::endl;

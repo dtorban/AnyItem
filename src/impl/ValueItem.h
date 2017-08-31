@@ -24,7 +24,6 @@ public:
 	void* getValue(void* state) const;
 	void write(std::ostream& out, const void* state) const;
 	void read(std::istream& in, void* state) const;
-	void set(const std::string& key, const AnyItem& item, void* state) const;
 	void remove(const std::string& key, void* state) const;
 	const std::type_info& getType() const;
 	static AnyItemImpl* instance();
@@ -102,10 +101,6 @@ template<typename T>
 inline any::AnyItemImpl* any::ValueItemImpl<T>::instance() {
 	static ValueItemImpl impl;
 	return &impl;
-}
-
-template<typename T>
-void any::ValueItemImpl<T>::set(const std::string& key, const any::AnyItem& item, void* state) const {
 }
 
 template<typename T>

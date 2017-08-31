@@ -74,13 +74,6 @@ void DictionaryItemImpl::write(std::ostream& out,
 void DictionaryItemImpl::read(std::istream& in, void* state) const {
 }
 
-void DictionaryItemImpl::set(const std::string& key, const AnyItem& item,
-		void* state) const {
-	std::map<std::string, AnyItem>& dict = static_cast<SimpleMap*>(state)->map;
-	dict.erase(key);
-	dict.insert(std::pair<std::string, AnyItem>(key,item));
-}
-
 void DictionaryItemImpl::remove(const std::string& key,
 		void* state) const {
 	std::map<std::string, AnyItem>& dict = static_cast<SimpleMap*>(state)->map;

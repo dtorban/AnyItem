@@ -53,10 +53,6 @@ void BlankItemImpl::write(std::ostream& out, const void* state) const {
 void BlankItemImpl::read(std::istream& in, void* state) const {
 }
 
-void BlankItemImpl::set(const std::string& key, const AnyItem& item,
-		void* state) const {
-}
-
 void BlankItemImpl::remove(const std::string& key, void* state) const {
 }
 

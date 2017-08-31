@@ -27,7 +27,6 @@ public:
 	virtual void deleteItem(void* state) const = 0;
 	virtual AnyItem& getItem(const std::string& key, void* state) const = 0;
 	virtual std::vector<std::string> getKeys(const void* state) const = 0;
-	virtual void set(const std::string& key, const AnyItem& item, void* state) const = 0;
 	virtual void remove(const std::string& key, void* state) const = 0;
 	virtual void* getValue(void* state) const = 0;
 	virtual void write(std::ostream& out, const void* state) const = 0;
