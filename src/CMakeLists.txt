@@ -31,7 +31,7 @@ source_group("Header Files" FILES ${${PROJECT_NAME}_h})
 add_library (${PROJECT_NAME} ${${PROJECT_NAME}_source_files} ${${PROJECT_NAME}_header_files})
 add_executable (${PROJECT_NAME}b ${${PROJECT_NAME}_source_files} ${${PROJECT_NAME}_header_files})
 
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/  DESTINATION "include" FILES_MATCHING PATTERN "*.h")
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/  DESTINATION "include/AnyItem" FILES_MATCHING PATTERN "*.h")
 
 install( TARGETS ${PROJECT_NAME}
          LIBRARY DESTINATION lib
