@@ -72,7 +72,9 @@ void AnyItem::copy(const AnyItem& item) {
 		return;
 	}
 
-	impl->deleteItem(state);
+	if (sanityCheck == getSanityCheckValue()) {
+		impl->deleteItem(state);
+	}
 
 	impl = item.impl;
 	state = impl->createItem();

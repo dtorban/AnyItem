@@ -8,6 +8,7 @@
 
 #include <impl/ArrayItemImpl.h>
 #include <vector>
+#include "AnyItem.h"
 
 namespace any {
 
@@ -67,8 +68,15 @@ void ArrayItemImpl::push(const AnyItem& item, void* state) const {
 
 AnyItem& ArrayItemImpl::getItem(int index, void* state) const {
 	std::vector<AnyItem>& v = *static_cast<std::vector<AnyItem>*>(state);
-	if (index < 0 || index >= v.size()) {
+	if (index < 0) {
 		return AnyItem::blank();
+	}
+
+	if (index >= v.size()) {
+		int vSize = v.size();
+		for (int f = 0; f < index - vSize + 1; f++) {
+			v.push_back(AnyItem());
+		}
 	}
 
 	return v[index];

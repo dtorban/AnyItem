@@ -9,6 +9,10 @@ void test(AnyItem item) {
 	std::cout << "Hello World " << item.asType<T>() << " " << item << std::endl;
 }
 
+void print(AnyItem item) {
+	std::cout << item << std::endl;
+}
+
 int main(int argc, char** argv) {
 	AnyItem v = ValueItem<char>('a');
 	ValueItem<int> item(3);
@@ -57,10 +61,19 @@ int main(int argc, char** argv) {
 		std::cout << "\t" << keys[f] << ": " << item3[keys[f]] << std::endl;
 	}
 
+	item5["inc"].toArray();
+	item5["inc"][0] = 3;
+	item5["inc"][1] = 4;
+	item5["inc"][2] = AnyItem();
+	item5["inc"][10] = 5;
+	item5["inc"][7] = std::string("hello");
+	item5["inc"][8]["test"] = 23;
+	//item5["inc"][5] = 1;
+
 	item5["AnyType"]["this"] = 27;
 
-	std::cout << item3 << std::endl;
-	std::cout << item5 << std::endl;
+	print(item3);
+	print(item5);
 
 	std::cout << item3["AnyType"]["that"] << std::endl;
 	std::cout << item3["test"]["again"] << std::endl;
