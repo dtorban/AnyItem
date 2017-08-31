@@ -23,9 +23,12 @@ public:
 	void* getValue(void* state) const;
 	void write(std::ostream& out, const void* state) const;
 	void read(std::istream& in, void* state) const;
-	void set(const std::string& key, const AnyItem& item, void* state) const;
 	void remove(const std::string& key, void* state) const;
 	const std::type_info& getType() const;
+	void push(const AnyItem& item, void* state) const;
+	AnyItem& getItem(int index, void* state) const;
+	void remove(int index, void* state) const;
+	int size(void* state) const;
 	static AnyItemImpl* instance();
 };
 

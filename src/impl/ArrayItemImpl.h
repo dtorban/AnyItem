@@ -6,15 +6,14 @@
  * 		Dan Orban (dtorban)
  */
 
-#ifndef DICTIONARYITEMIMPL_H_
-#define DICTIONARYITEMIMPL_H_
+#ifndef ARRAYITEMIMPL_H_
+#define ARRAYITEMIMPL_H_
 
-#include "AnyItemImpl.h"
-#include <map>
+#include "AnyItem.h"
 
 namespace any {
 
-class DictionaryItemImpl : public AnyItemImpl {
+class ArrayItemImpl : public AnyItemImpl {
 public:
 	void* createItem() const;
 	void copyItem(void* state, void* newState) const;
@@ -35,4 +34,4 @@ public:
 
 } /* namespace any */
 
-#endif /* DICTIONARYITEMIMPL_H_ */
+#endif /* ARRAYITEMIMPL_H_ */

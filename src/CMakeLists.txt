@@ -11,6 +11,7 @@ set (${PROJECT_NAME}_cpp
   AnyItem.cpp
   impl/BlankItem.cpp
   impl/DictionaryItemImpl.cpp
+  impl/ArrayItemImpl.cpp
 )
 set (${PROJECT_NAME}_h
 )

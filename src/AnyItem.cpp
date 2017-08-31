@@ -9,6 +9,7 @@
 #include "AnyItem.h"
 #include "impl/BlankItem.h"
 #include "impl/DictionaryItemImpl.h"
+#include "impl/ArrayItemImpl.h"
 
 namespace any {
 
@@ -34,9 +35,18 @@ AnyItem::~AnyItem() {
 	}
 }
 
-std::vector<AnyItem> AnyItem::asArray() const {
-	static std::vector<AnyItem> items;
-	return items;
+AnyItem& AnyItem::toArray() {
+	if (impl == BlankItemImpl::instance() && readOnly) {
+		return *this;
+	}
+
+	if (impl != ArrayItemImpl::instance()) {
+		impl = ArrayItemImpl::instance();
+		impl->deleteItem(state);
+		state = impl->createItem();
+	}
+
+	return *this;
 }
 
 void AnyItem::remove(const std::string& key) {
@@ -76,6 +86,23 @@ void* AnyItem::getValue() const {
 
 AnyItem& AnyItem::blank() {
 	return BlankItem::instance();
+}
+
+void AnyItem::pushValue(const AnyItem& item) {
+	toArray();
+	impl->push(item, state);
+}
+
+void AnyItem::remove(int index) {
+	impl->remove(index, state);
+}
+
+AnyItem& AnyItem::operator[](int index) {
+	return impl->getItem(index, state);
+}
+
+int AnyItem::size() {
+	return impl->size(state);
 }
 
 std::ostream& operator<<(std::ostream& stream, const AnyItem& item) {

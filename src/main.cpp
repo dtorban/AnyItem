@@ -34,8 +34,10 @@ int main(int argc, char** argv) {
 	item3["test"]["again"] = std::string("bed");
 	item3["test"]["again"] = 3.14;
 	item3["blah"] = new int(23);
+	item3["items"].push(2).push(5).push(std::string("again"));
+	item3["items"].push(AnyItem())[3].push(67);
+	item3["items"][3].push(67);
 
-	item3["AnyType"] = AnyItem();
 	item3["AnyType"]["that"] = 7;
 	item3["AnyType"]["this"] = 24;
 
@@ -44,6 +46,8 @@ int main(int argc, char** argv) {
 	std::cout << BlankItem::instance() << std::endl;
 
 	AnyItem item5 = item3;
+
+	item5["items"][3][1] = 55;
 
 	std::vector<std::string> keys = item3.getKeys();
 	for (int f = 0; f < keys.size(); f++) {

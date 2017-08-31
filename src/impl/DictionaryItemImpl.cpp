@@ -90,6 +90,31 @@ AnyItemImpl* DictionaryItemImpl::instance() {
 	return &impl;
 }
 
+void DictionaryItemImpl::push(const AnyItem& item, void* state) const {
+}
+
+AnyItem& DictionaryItemImpl::getItem(int index, void* state) const {
+	std::vector<std::string> keys = getKeys(state);
+	if (index < 0 && index >= keys.size()) {
+		return BlankItem::instance();
+	}
+
+	return getItem(keys[index], state);
+}
+
+void DictionaryItemImpl::remove(int index, void* state) const {
+	std::vector<std::string> keys = getKeys(state);
+	if (index < 0 && index >= keys.size()) {
+		return;
+	}
+
+	return remove(keys[index], state);
+}
+
+int DictionaryItemImpl::size(void* state) const {
+	return static_cast<const SimpleMap*>(state)->map.size();
+}
+
 
 } /* namespace any */
 

@@ -24,6 +24,10 @@ public:
 	void read(std::istream& in, void* state) const;
 	void remove(const std::string& key, void* state) const;
 	const std::type_info& getType() const;
+	void push(const AnyItem& item, void* state) const;
+	AnyItem& getItem(int index, void* state) const;
+	void remove(int index, void* state) const;
+	int size(void* state) const;
 	static AnyItemImpl* instance();
 };
 
@@ -103,5 +107,24 @@ inline any::AnyItemImpl* any::ValueItemImpl<T>::instance() {
 template<typename T>
 void any::ValueItemImpl<T>::remove(const std::string& key, void* state) const {
 }
+
+template<typename T>
+void any::ValueItemImpl<T>::push(const any::AnyItem& item, void* state) const {
+}
+
+template<typename T>
+any::AnyItem& any::ValueItemImpl<T>::getItem(int index, void* state) const {
+	return AnyItem::blank();
+}
+
+template<typename T>
+void any::ValueItemImpl<T>::remove(int index, void* state) const {
+}
+
+template<typename T>
+int any::ValueItemImpl<T>::size(void* state) const {
+	return 0;
+}
+
 
 #endif /* VALUEITEM_H_ */

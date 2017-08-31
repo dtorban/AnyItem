@@ -27,7 +27,6 @@ public:
 
 	template <typename T>
 	T asType(T defaultValue = T()) const;
-	std::vector<AnyItem> asArray() const;
 	void remove(const std::string& key);
 	std::vector<std::string> getKeys() const;
 
@@ -37,11 +36,20 @@ public:
 	friend std::ostream& operator<<(std::ostream& stream, const AnyItem& item);
 	friend std::istream& operator>> (std::istream& stream, AnyItem& item);
 
+	// Array methods
+	AnyItem& toArray();
+	template <typename T>
+	AnyItem& push(const T& val);
+	void remove(int index);
+	AnyItem& operator[](int index);
+	int size();
+
 	static AnyItem& blank();
 
 private:
 	void copy(const AnyItem& item);
 	void* getValue() const;
+	void pushValue(const AnyItem& item);
 
 protected:
 	void* state;
@@ -110,12 +118,20 @@ struct ValueItemConverter<any::AnyItem> {
 		return val;
 	}
 };
+
 }
 
 template <typename T>
 inline void any::AnyItem::operator=(const T& val) {
 	AnyItem item = any::ValueItemConverter<T>::getAnyItem(val);
 	copy(item);
+}
+
+template <typename T>
+any::AnyItem& any::AnyItem::push(const T& val) {
+	AnyItem item = any::ValueItemConverter<T>::getAnyItem(val);
+	pushValue(item);
+	return *this;
 }
 
 #endif /* ANYITEM_H_ */

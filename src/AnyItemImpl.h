@@ -32,6 +32,10 @@ public:
 	virtual void write(std::ostream& out, const void* state) const = 0;
 	virtual void read(std::istream& in, void* state) const = 0;
 	virtual const std::type_info& getType() const = 0;
+	virtual void push(const AnyItem& item, void* state) const = 0;
+	virtual AnyItem& getItem(int index, void* state) const = 0;
+	virtual void remove(int index, void* state) const = 0;
+	virtual int size(void* state) const = 0;
 };
 
 } /* namespace any */

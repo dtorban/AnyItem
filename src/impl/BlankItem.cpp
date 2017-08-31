@@ -67,4 +67,19 @@ AnyItemImpl* BlankItemImpl::instance() {
 	return &impl;
 }
 
+void BlankItemImpl::push(const AnyItem& item, void* state) const {
+}
+
+AnyItem& BlankItemImpl::getItem(int index, void* state) const {
+	return BlankItem::instance();
+}
+
+void BlankItemImpl::remove(int index, void* state) const {
+}
+
+int BlankItemImpl::size(void* state) const {
+	return 0;
+}
+
 } /* namespace IVGFX */
+
