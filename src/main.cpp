@@ -38,9 +38,14 @@ int main(int argc, char** argv) {
 	item3["test"]["again"] = std::string("bed");
 	item3["test"]["again"] = 3.14;
 	item3["blah"] = new int(23);
+	item3["blah2"] = (int*)(NULL);
 	item3["items"].push(2).push(5).push(std::string("again"));
 	item3["items"].push(AnyItem())[3].push(67);
 	item3["items"][3].push(67);
+
+	std::cout << *item3["blah"].asType<int*>() << std::endl;
+	*item3["blah"].asType<int*>() = 5;
+	std::cout << *item3["blah"].asType<int*>() << std::endl;
 
 	item3["AnyType"]["that"] = 7;
 	item3["AnyType"]["this"] = 24;
@@ -49,9 +54,17 @@ int main(int argc, char** argv) {
 
 	std::cout << BlankItem::instance() << std::endl;
 
+	item3["inc"].toArray();
+	item3["inc"][0] = 3;
+	item3["inc"][1] = 4;
+	item3["inc"][2] = AnyItem();
+	item3["inc"][10] = 5;
+	item3["inc"][7] = std::string("hello");
+
+
 	AnyItem item5 = item3;
 
-	item5.remove("blah");
+	item5.remove("blah2");
 
 	item5["items"].remove(2);
 	item5["items"][2][1] = 55;
@@ -61,12 +74,6 @@ int main(int argc, char** argv) {
 		std::cout << "\t" << keys[f] << ": " << item3[keys[f]] << std::endl;
 	}
 
-	item5["inc"].toArray();
-	item5["inc"][0] = 3;
-	item5["inc"][1] = 4;
-	item5["inc"][2] = AnyItem();
-	item5["inc"][10] = 5;
-	item5["inc"][7] = std::string("hello");
 	item5["inc"][8]["test"] = 23;
 	//item5["inc"][5] = 1;
 
@@ -79,6 +86,8 @@ int main(int argc, char** argv) {
 	std::cout << item3["test"]["again"] << std::endl;
 
 	std::cout << *item3["blah"].asType<int*>() << std::endl;
+
+	delete item3["blah"].asType<int*>();
 
 	return 0;
 }
