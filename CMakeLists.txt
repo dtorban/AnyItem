@@ -21,7 +21,7 @@ endif()
 # other builds, we'll add a postfix to the name of the lib or exe that we generate.
 
 if(NOT CMAKE_DEBUG_POSTFIX)
-  set(CMAKE_DEBUG_POSTFIX "")
+  set(CMAKE_DEBUG_POSTFIX "d")
 endif()
 set(CMAKE_RELEASE_POSTFIX "")
 set(CMAKE_RELWITHDEBINFO_POSTFIX "rd")
