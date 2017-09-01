@@ -40,6 +40,11 @@ AnyItem& BlankItemImpl::getItem(const std::string& key,
 	return BlankItem::instance();
 }
 
+const AnyItem& BlankItemImpl::getItemConst(const std::string& key,
+		const void* state) const {
+	return BlankItem::instance();
+}
+
 std::vector<std::string> BlankItemImpl::getKeys(const void* state) const {
 	return std::vector<std::string>();
 }

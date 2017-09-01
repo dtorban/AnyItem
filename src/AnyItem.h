@@ -31,6 +31,7 @@ public:
 	std::vector<std::string> getKeys() const;
 
 	AnyItem& operator[](const std::string& key);
+	const AnyItem& operator[](const std::string& key) const;
 	template <typename T>
 	void operator=(const T& item);
 	friend std::ostream& operator<<(std::ostream& stream, const AnyItem& item);

@@ -67,6 +67,11 @@ AnyItem& AnyItem::operator [](const std::string& key) {
 	return impl->getItem(key, state);
 }
 
+const AnyItem& AnyItem::operator [](const std::string& key) const {
+	std::cout << "key " << key << std::endl;
+	return impl->getItemConst(key, state);
+}
+
 void AnyItem::copy(const AnyItem& item) {
 	if (impl == BlankItemImpl::instance() && readOnly) {
 		return;

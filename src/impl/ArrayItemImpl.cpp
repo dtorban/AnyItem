@@ -26,6 +26,10 @@ void ArrayItemImpl::deleteItem(void* state) const {
 
 AnyItem& ArrayItemImpl::getItem(const std::string& key,
 		void* state) const {
+}
+
+const AnyItem& ArrayItemImpl::getItemConst(const std::string& key,
+		const void* state) const {
 	return AnyItem::blank();
 }
 
@@ -108,4 +112,6 @@ AnyItemImpl* ArrayItemImpl::instance() {
 	return &impl;
 }
 
+
 } /* namespace any */
+

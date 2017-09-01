@@ -5,12 +5,16 @@
 using namespace any;
 
 template <typename T>
-void test(AnyItem item) {
+void test(const AnyItem& item) {
 	std::cout << "Hello World " << item.asType<T>() << " " << item << std::endl;
 }
 
 void print(AnyItem item) {
 	std::cout << item << std::endl;
+}
+
+void printSomething(const AnyItem& item) {
+	std::cout << "Const test: " << item["ThisTest"]["Another"] << " " << item["inc"] << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -43,6 +47,7 @@ int main(int argc, char** argv) {
 	item3["items"].push(AnyItem())[3].push(67);
 	item3["items"][3].push(67);
 
+
 	std::cout << *item3["blah"].asType<int*>() << std::endl;
 	*item3["blah"].asType<int*>() = 5;
 	std::cout << *item3["blah"].asType<int*>() << std::endl;
@@ -61,6 +66,7 @@ int main(int argc, char** argv) {
 	item3["inc"][10] = 5;
 	item3["inc"][7] = std::string("hello");
 
+	printSomething(item3);
 
 	AnyItem item5 = item3;
 

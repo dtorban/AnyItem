@@ -18,6 +18,7 @@ public:
 	void copyItem(void* state, void* newState) const;
 	void deleteItem(void* state) const;
 	AnyItem& getItem(const std::string& key, void* state) const;
+	const AnyItem& getItemConst(const std::string& key, const void* state) const;
 	std::vector<std::string> getKeys(const void* state) const;
 	void* getValue(void* state) const;
 	void write(std::ostream& out, const void* state) const;
@@ -114,6 +115,11 @@ void any::ValueItemImpl<T>::push(const any::AnyItem& item, void* state) const {
 
 template<typename T>
 any::AnyItem& any::ValueItemImpl<T>::getItem(int index, void* state) const {
+	return AnyItem::blank();
+}
+
+template<typename T>
+const any::AnyItem& any::ValueItemImpl<T>::getItemConst(const std::string& key, const void* state) const {
 	return AnyItem::blank();
 }
 
