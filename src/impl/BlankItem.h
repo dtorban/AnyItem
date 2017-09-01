@@ -28,6 +28,7 @@ public:
 	const std::type_info& getType() const;
 	void push(const AnyItem& item, void* state) const;
 	AnyItem& getItem(int index, void* state) const;
+	const AnyItem& getItemConst(int index, const void* state) const;
 	void remove(int index, void* state) const;
 	int size(void* state) const;
 	static AnyItemImpl* instance();

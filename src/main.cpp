@@ -14,7 +14,7 @@ void print(AnyItem item) {
 }
 
 void printSomething(const AnyItem& item) {
-	std::cout << "Const test: " << item["ThisTest"]["Another"] << " " << item["inc"] << std::endl;
+	std::cout << "Const test: " << item["ThisTest"]["Another"] << " " << item["inc"] << " " << item[2]<< " " << item[20] << std::endl;
 }
 
 int main(int argc, char** argv) {

@@ -68,7 +68,6 @@ AnyItem& AnyItem::operator [](const std::string& key) {
 }
 
 const AnyItem& AnyItem::operator [](const std::string& key) const {
-	std::cout << "key " << key << std::endl;
 	return impl->getItemConst(key, state);
 }
 
@@ -105,6 +104,10 @@ void AnyItem::remove(int index) {
 }
 
 AnyItem& AnyItem::operator[](int index) {
+	return impl->getItem(index, state);
+}
+
+const AnyItem& AnyItem::operator[](int index) const {
 	return impl->getItem(index, state);
 }
 

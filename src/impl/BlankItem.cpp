@@ -79,6 +79,10 @@ AnyItem& BlankItemImpl::getItem(int index, void* state) const {
 	return BlankItem::instance();
 }
 
+const AnyItem& BlankItemImpl::getItemConst(int index, const void* state) const {
+	return BlankItem::instance();
+}
+
 void BlankItemImpl::remove(int index, void* state) const {
 }
 

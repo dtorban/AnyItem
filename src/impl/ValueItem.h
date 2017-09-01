@@ -27,6 +27,7 @@ public:
 	const std::type_info& getType() const;
 	void push(const AnyItem& item, void* state) const;
 	AnyItem& getItem(int index, void* state) const;
+	const AnyItem& getItemConst(int index, const void* state) const;
 	void remove(int index, void* state) const;
 	int size(void* state) const;
 	static AnyItemImpl* instance();
@@ -115,6 +116,11 @@ void any::ValueItemImpl<T>::push(const any::AnyItem& item, void* state) const {
 
 template<typename T>
 any::AnyItem& any::ValueItemImpl<T>::getItem(int index, void* state) const {
+	return AnyItem::blank();
+}
+
+template<typename T>
+const any::AnyItem& any::ValueItemImpl<T>::getItemConst(int index, const void* state) const {
 	return AnyItem::blank();
 }
 

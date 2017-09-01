@@ -86,6 +86,15 @@ AnyItem& ArrayItemImpl::getItem(int index, void* state) const {
 	return v[index];
 }
 
+const AnyItem& ArrayItemImpl::getItemConst(int index, const void* state) const {
+	const std::vector<AnyItem>& v = *static_cast<const std::vector<AnyItem>*>(state);
+	if (index < 0 || index >= v.size()) {
+		return AnyItem::blank();
+	}
+
+	return v[index];
+}
+
 void ArrayItemImpl::remove(int index, void* state) const {
 	std::vector<AnyItem>& v = *static_cast<std::vector<AnyItem>*>(state);
 

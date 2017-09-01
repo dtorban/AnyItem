@@ -35,6 +35,7 @@ public:
 	virtual const std::type_info& getType() const = 0;
 	virtual void push(const AnyItem& item, void* state) const = 0;
 	virtual AnyItem& getItem(int index, void* state) const = 0;
+	virtual const AnyItem& getItemConst(int index, const void* state) const = 0;
 	virtual void remove(int index, void* state) const = 0;
 	virtual int size(void* state) const = 0;
 };

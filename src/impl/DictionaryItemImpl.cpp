@@ -95,11 +95,20 @@ void DictionaryItemImpl::push(const AnyItem& item, void* state) const {
 
 AnyItem& DictionaryItemImpl::getItem(int index, void* state) const {
 	std::vector<std::string> keys = getKeys(state);
-	if (index < 0 && index >= keys.size()) {
+	if (index < 0 || index >= keys.size()) {
 		return BlankItem::instance();
 	}
 
 	return getItem(keys[index], state);
+}
+
+const AnyItem& DictionaryItemImpl::getItemConst(int index, const void* state) const {
+	std::vector<std::string> keys = getKeys(state);
+	if (index < 0 || index >= keys.size()) {
+		return BlankItem::instance();
+	}
+
+	return getItemConst(keys[index], state);
 }
 
 void DictionaryItemImpl::remove(int index, void* state) const {

@@ -43,6 +43,7 @@ public:
 	AnyItem& push(const T& val);
 	void remove(int index);
 	AnyItem& operator[](int index);
+	const AnyItem& operator[](int index) const;
 	int size();
 
 	static AnyItem& blank();
