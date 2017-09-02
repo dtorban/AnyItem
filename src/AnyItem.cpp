@@ -125,7 +125,7 @@ std::istream& operator>>(std::istream& stream, AnyItem& item) {
 	return stream;
 }
 
-bool AnyItem::isBlank() {
+bool AnyItem::isBlank() const {
 	return impl == BlankItemImpl::instance();
 }
 
