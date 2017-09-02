@@ -37,6 +37,7 @@ public:
 	const AnyItem& operator[](const std::string& key) const;
 	template <typename T>
 	void operator=(const T& item);
+	void set(const AnyItem& item);
 	friend std::ostream& operator<<(std::ostream& stream, const AnyItem& item);
 	friend std::istream& operator>> (std::istream& stream, AnyItem& item);
 

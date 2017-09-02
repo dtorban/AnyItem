@@ -129,5 +129,9 @@ bool AnyItem::isBlank() const {
 	return impl == BlankItemImpl::instance();
 }
 
+void AnyItem::set(const AnyItem& item) {
+	this->copy(item);
+}
+
 } /* namespace any */
 
