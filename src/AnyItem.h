@@ -29,6 +29,7 @@ public:
 	T asType(T defaultValue = T()) const;
 	void remove(const std::string& key);
 	std::vector<std::string> getKeys() const;
+	bool isBlank();
 
 	AnyItem& operator[](const std::string& key);
 	const AnyItem& operator[](const std::string& key) const;

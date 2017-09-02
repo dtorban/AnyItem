@@ -129,7 +129,6 @@ const AnyItem& DictionaryItemImpl::getItemConst(const std::string& key,
 	const std::map<std::string, AnyItem>& dict = static_cast<const SimpleMap*>(state)->map;
 	std::map<std::string, AnyItem>::const_iterator it = dict.find(key);
 	if (it != dict.end()) {
-		std::cout << "found " << it->first << std::endl;
 		return it->second;
 	}
 

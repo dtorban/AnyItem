@@ -125,6 +125,9 @@ std::istream& operator>>(std::istream& stream, AnyItem& item) {
 	return stream;
 }
 
+bool AnyItem::isBlank() {
+	return impl == BlankItemImpl::instance();
+}
 
 } /* namespace any */
 
