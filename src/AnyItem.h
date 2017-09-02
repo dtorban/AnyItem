@@ -27,6 +27,8 @@ public:
 
 	template <typename T>
 	T asType(T defaultValue = T()) const;
+	template <typename T>
+	T asPtr() const;
 	void remove(const std::string& key);
 	std::vector<std::string> getKeys() const;
 	bool isBlank() const;
@@ -93,7 +95,24 @@ private:
 
 template<typename T>
 inline T any::AnyItem::asType(T defaultValue) const {
-	return any::AnyItem::AnyItemAsTypeHelper<T>::asType(*this, defaultValue);
+	std::stringstream ss;
+	ss << *this;
+	std::istringstream is(ss.str().c_str());
+
+	T val;
+	is >> val;
+	if (!is) {
+		return defaultValue;
+	}
+	else {
+		return val;
+	}
+	//return any::AnyItem::AnyItemAsTypeHelper<T>::asType(*this, defaultValue);
+}
+
+template<typename T>
+inline T any::AnyItem::asPtr() const {
+	return *static_cast<T*>(this->getValue());
 }
 
 #include "AnyItemImpl.h"

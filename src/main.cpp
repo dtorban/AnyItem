@@ -28,9 +28,9 @@ int main(int argc, char** argv) {
 	test<std::string>(ValueItem<std::string>("abc"));
 	test<int>(item2);
 
-	int* s = item2.asType<int*>();
+	int* s = item2.asPtr<int*>();
 
-	std::cout << *item2.asType<int*>() << " " << item2 << std::endl;
+	std::cout << *item2.asPtr<int*>() << " " << item2 << std::endl;
 
 	//std::cout << item2["this"]["is"]["a"].asType<std::string>("test") << std::endl;
 
@@ -48,9 +48,9 @@ int main(int argc, char** argv) {
 	item3["items"][3].push(67);
 
 
-	std::cout << *item3["blah"].asType<int*>() << std::endl;
-	*item3["blah"].asType<int*>() = 5;
-	std::cout << *item3["blah"].asType<int*>() << std::endl;
+	std::cout << *item3["blah"].asPtr<int*>() << std::endl;
+	*item3["blah"].asPtr<int*>() = 5;
+	std::cout << *item3["blah"].asPtr<int*>() << std::endl;
 
 	item3["AnyType"]["that"] = 7;
 	item3["AnyType"]["this"] = 24;
@@ -91,9 +91,9 @@ int main(int argc, char** argv) {
 	std::cout << item3["AnyType"]["that"] << std::endl;
 	std::cout << item3["test"]["again"] << std::endl;
 
-	std::cout << *item3["blah"].asType<int*>() << std::endl;
+	std::cout << *item3["blah"].asPtr<int*>() << std::endl;
 
-	delete item3["blah"].asType<int*>();
+	delete item3["blah"].asPtr<int*>();
 
 	return 0;
 }
