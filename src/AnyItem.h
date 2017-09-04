@@ -50,6 +50,9 @@ public:
 	const AnyItem& operator[](int index) const;
 	int size();
 
+	template <typename T>
+	T& asVal() const;
+
 	static AnyItem& blank();
 
 private:
@@ -61,6 +64,9 @@ protected:
 	void* state;
 	AnyItemImpl* impl;
 	bool readOnly;
+
+	void* getItemState(const AnyItem& item) const { return item.state; }
+	AnyItemImpl* getItemImpl(const AnyItem& item) const { return item.impl; }
 
 private:
 	long sanityCheck;
@@ -113,6 +119,11 @@ inline T any::AnyItem::asType(T defaultValue) const {
 
 template<typename T>
 inline T any::AnyItem::asPtr() const {
+	return *static_cast<T*>(this->getValue());
+}
+
+template<typename T>
+T& any::AnyItem::asVal() const {
 	return *static_cast<T*>(this->getValue());
 }
 

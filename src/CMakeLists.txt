@@ -12,6 +12,7 @@ set (${PROJECT_NAME}_cpp
   impl/BlankItem.cpp
   impl/DictionaryItemImpl.cpp
   impl/ArrayItemImpl.cpp
+  impl/ReferenceCountedItem.cpp
 )
 set (${PROJECT_NAME}_h
 )

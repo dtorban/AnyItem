@@ -1,6 +1,7 @@
 #include <iostream>
 #include "AnyItem.h"
 #include "impl/BlankItem.h"
+#include "impl/ReferenceCountedItem.h"
 
 using namespace any;
 
@@ -18,6 +19,15 @@ void printSomething(const AnyItem& item) {
 }
 
 int main(int argc, char** argv) {
+	{
+		AnyItem i;
+		i["ref3"].set(ReferenceCountedItem(ValueItem<int*>(new int(3))));
+		i["ref4"].set(i["ref3"]);
+		std::cout << i["ref3"] << std::endl;
+		i["ref3"] = 1;
+		std::cout << i["ref3"] << std::endl;
+	}
+
 	AnyItem v = ValueItem<char>('a');
 	ValueItem<int> item(3);
 	item = 4;
@@ -46,7 +56,11 @@ int main(int argc, char** argv) {
 	item3["items"].push(2).push(5).push(std::string("again"));
 	item3["items"].push(AnyItem())[3].push(67);
 	item3["items"][3].push(67);
+	item3["ref"].set(ReferenceCountedItem(ValueItem<int>(3)));
+	item3["ref2"].set(ValueItem<int>(3));
+	item3["ref3"].set(ReferenceCountedItem(ValueItem<int*>(new int(3))));
 
+	std::cout << "Ref3: " << *item3["ref3"].asPtr<int*>() << std::endl;
 
 	std::cout << *item3["blah"].asPtr<int*>() << std::endl;
 	*item3["blah"].asPtr<int*>() = 5;
@@ -74,11 +88,16 @@ int main(int argc, char** argv) {
 
 	item5["items"].remove(2);
 	item5["items"][2][1] = 55;
+	item5["ref"].asVal<int>() = 5;
+	item5["ref2"].asVal<int>() = 5;
+	*item5["ref3"].asPtr<int*>() = 5;
 
 	std::vector<std::string> keys = item3.getKeys();
 	for (int f = 0; f < keys.size(); f++) {
 		std::cout << "\t" << keys[f] << ": " << item3[keys[f]] << std::endl;
 	}
+
+	std::cout << "Ref3: " << *item3["ref3"].asPtr<int*>() << std::endl;
 
 	item5["inc"][8]["test"] = 23;
 	//item5["inc"][5] = 1;

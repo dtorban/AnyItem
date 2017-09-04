@@ -25,6 +25,7 @@ public:
 	virtual void* createItem() const = 0;
 	virtual void copyItem(void* state, void* newState) const = 0;
 	virtual void deleteItem(void* state) const = 0;
+	virtual void destroyState(void* state) const {}
 	virtual AnyItem& getItem(const std::string& key, void* state) const = 0;
 	virtual const AnyItem& getItemConst(const std::string& key, const void* state) const = 0;
 	virtual std::vector<std::string> getKeys(const void* state) const = 0;

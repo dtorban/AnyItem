@@ -11,12 +11,25 @@
 
 namespace any {
 
+template<typename T>
+struct is_pointer { static const bool value = false; };
+
+template<typename T>
+struct is_pointer<T*> { static const bool value = true; };
+
+template<typename T>
+struct item_delete { static void destroy(T& item) {} };
+
+template<typename T>
+struct item_delete<T*> { static void destroy(T* item) { delete item; } };
+
 template <typename T>
 class ValueItemImpl : public AnyItemImpl {
 public:
 	void* createItem() const;
 	void copyItem(void* state, void* newState) const;
 	void deleteItem(void* state) const;
+	void destroyState(void* state) const;
 	AnyItem& getItem(const std::string& key, void* state) const;
 	const AnyItem& getItemConst(const std::string& key, const void* state) const;
 	std::vector<std::string> getKeys(const void* state) const;
@@ -64,6 +77,13 @@ inline void any::ValueItemImpl<T>::copyItem(void* state, void* newState) const {
 template<typename T>
 inline void any::ValueItemImpl<T>::deleteItem(void* state) const {
 	delete (T*)state;
+}
+
+template<typename T>
+inline void any::ValueItemImpl<T>::destroyState(void* state) const {
+	if (is_pointer<T>::value) {
+		item_delete<T>::destroy(*static_cast<T*>(state));
+	}
 }
 
 template<typename T>
