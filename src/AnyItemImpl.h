@@ -39,6 +39,7 @@ public:
 	virtual const AnyItem& getItemConst(int index, const void* state) const = 0;
 	virtual void remove(int index, void* state) const = 0;
 	virtual int size(void* state) const = 0;
+	virtual bool isValue() const { return false; }
 };
 
 } /* namespace any */

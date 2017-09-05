@@ -66,7 +66,9 @@ void DictionaryItemImpl::write(std::ostream& out,
 		}
 		out <<"\"" << keys[f] << "\":";
 		std::map<std::string, AnyItem>::const_iterator it = dict.find(keys[f]);
+		if (it->second.isValue()) { out << "\""; }
 		out << it->second;
+		if (it->second.isValue()) { out << "\""; }
 	}
 	out << "}";
 }

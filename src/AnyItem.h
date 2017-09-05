@@ -32,6 +32,7 @@ public:
 	void remove(const std::string& key);
 	std::vector<std::string> getKeys() const;
 	bool isBlank() const;
+	bool isValue() const;
 
 	AnyItem& operator[](const std::string& key);
 	const AnyItem& operator[](const std::string& key) const;

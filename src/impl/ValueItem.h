@@ -44,6 +44,7 @@ public:
 	void remove(int index, void* state) const;
 	int size(void* state) const;
 	static AnyItemImpl* instance();
+	bool isValue() const { return true; }
 };
 
 template <typename T>

@@ -32,6 +32,7 @@ public:
 	const AnyItem& getItemConst(int index, const void* state) const;
 	void remove(int index, void* state) const;
 	int size(void* state) const;
+	bool isValue() const { return impl->isValue(); }
 
 	struct CountedItem {
 		void* state;

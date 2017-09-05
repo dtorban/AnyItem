@@ -49,7 +49,9 @@ void ArrayItemImpl::write(std::ostream& out, const void* state) const {
 		if (f != 0) {
 			out << ",";
 		}
+		if (v[f].isValue()) { out << "\""; }
 		out << v[f];
+		if (v[f].isValue()) { out << "\""; }
 	}
 	out << "]";
 }

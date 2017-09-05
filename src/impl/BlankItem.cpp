@@ -54,6 +54,7 @@ void* BlankItemImpl::getValue(void* state) const {
 }
 
 void BlankItemImpl::write(std::ostream& out, const void* state) const {
+	out << "null";
 }
 
 void BlankItemImpl::read(std::istream& in, void* state) const {

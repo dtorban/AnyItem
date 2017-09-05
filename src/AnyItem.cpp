@@ -129,6 +129,10 @@ bool AnyItem::isBlank() const {
 	return impl == BlankItemImpl::instance();
 }
 
+bool AnyItem::isValue() const {
+	return impl->isValue();
+}
+
 void AnyItem::set(const AnyItem& item) {
 	this->copy(item);
 }
