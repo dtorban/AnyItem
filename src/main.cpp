@@ -38,9 +38,9 @@ int main(int argc, char** argv) {
 	test<std::string>(ValueItem<std::string>("abc"));
 	test<int>(item2);
 
-	int* s = item2.asPtr<int*>();
+	int* s = item2.ptr<int*>();
 
-	std::cout << *item2.asPtr<int*>() << " " << item2 << std::endl;
+	std::cout << *item2.ptr<int*>() << " " << item2 << std::endl;
 
 	//std::cout << item2["this"]["is"]["a"].asType<std::string>("test") << std::endl;
 
@@ -60,11 +60,11 @@ int main(int argc, char** argv) {
 	item3["ref2"].set(ValueItem<int>(3));
 	item3["ref3"].set(ReferenceCountedItem(ValueItem<int*>(new int(3))));
 
-	std::cout << "Ref3: " << *item3["ref3"].asPtr<int*>() << std::endl;
+	std::cout << "Ref3: " << *item3["ref3"].ptr<int*>() << std::endl;
 
-	std::cout << *item3["blah"].asPtr<int*>() << std::endl;
-	*item3["blah"].asPtr<int*>() = 5;
-	std::cout << *item3["blah"].asPtr<int*>() << std::endl;
+	std::cout << *item3["blah"].ptr<int*>() << std::endl;
+	*item3["blah"].ptr<int*>() = 5;
+	std::cout << *item3["blah"].ptr<int*>() << std::endl;
 
 	item3["AnyType"]["that"] = 7;
 	item3["AnyType"]["this"] = 24;
@@ -88,16 +88,16 @@ int main(int argc, char** argv) {
 
 	item5["items"].remove(2);
 	item5["items"][2][1] = 55;
-	item5["ref"].asVal<int>() = 5;
-	item5["ref2"].asVal<int>() = 5;
-	*item5["ref3"].asPtr<int*>() = 5;
+	item5["ref"].val<int>() = 5;
+	item5["ref2"].val<int>() = 5;
+	*item5["ref3"].ptr<int*>() = 5;
 
 	std::vector<std::string> keys = item3.getKeys();
 	for (int f = 0; f < keys.size(); f++) {
 		std::cout << "\t" << keys[f] << ": " << item3[keys[f]] << std::endl;
 	}
 
-	std::cout << "Ref3: " << *item3["ref3"].asPtr<int*>() << std::endl;
+	std::cout << "Ref3: " << *item3["ref3"].ptr<int*>() << std::endl;
 
 	item5["inc"][8]["test"] = 23;
 	//item5["inc"][5] = 1;
@@ -110,9 +110,9 @@ int main(int argc, char** argv) {
 	std::cout << item3["AnyType"]["that"] << std::endl;
 	std::cout << item3["test"]["again"] << std::endl;
 
-	std::cout << *item3["blah"].asPtr<int*>() << std::endl;
+	std::cout << *item3["blah"].ptr<int*>() << std::endl;
 
-	delete item3["blah"].asPtr<int*>();
+	delete item3["blah"].ptr<int*>();
 
 	return 0;
 }

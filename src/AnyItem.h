@@ -28,7 +28,9 @@ public:
 	template <typename T>
 	T asType(T defaultValue = T()) const;
 	template <typename T>
-	T asPtr() const;
+	T ptr() const;
+	template <typename T>
+	T& val() const;
 	void remove(const std::string& key);
 	std::vector<std::string> getKeys() const;
 	bool isBlank() const;
@@ -51,8 +53,6 @@ public:
 	const AnyItem& operator[](int index) const;
 	int size();
 
-	template <typename T>
-	T& asVal() const;
 
 	static AnyItem& blank();
 
@@ -119,12 +119,12 @@ inline T any::AnyItem::asType(T defaultValue) const {
 }
 
 template<typename T>
-inline T any::AnyItem::asPtr() const {
+inline T any::AnyItem::ptr() const {
 	return *static_cast<T*>(this->getValue());
 }
 
 template<typename T>
-T& any::AnyItem::asVal() const {
+T& any::AnyItem::val() const {
 	return *static_cast<T*>(this->getValue());
 }
 
