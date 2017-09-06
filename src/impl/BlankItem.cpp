@@ -15,10 +15,9 @@ AnyItem& BlankItem::instance() {
 	return item;
 }
 
-BlankItem::BlankItem() {
+BlankItem::BlankItem() : AnyItem(true) {
 	impl = BlankItemImpl::instance();
 	state = NULL;
-	readOnly = true;
 }
 
 BlankItem::~BlankItem() {

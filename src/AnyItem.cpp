@@ -13,9 +13,13 @@
 
 namespace any {
 
-AnyItem::AnyItem() : impl(BlankItemImpl::instance()), readOnly(false) {
+AnyItem::AnyItem() : readOnly(false) {
+	impl = AnyItem::blank().impl;
 	state = impl->createItem();
 	sanityCheck = getSanityCheckValue();
+}
+
+AnyItem::AnyItem(bool readOnly) : readOnly(readOnly) {
 }
 
 AnyItem::AnyItem(AnyItemImpl* impl) : impl(impl), readOnly(false) {
@@ -23,7 +27,8 @@ AnyItem::AnyItem(AnyItemImpl* impl) : impl(impl), readOnly(false) {
 	sanityCheck = getSanityCheckValue();
 }
 
-AnyItem::AnyItem(const AnyItem& item) : impl(BlankItemImpl::instance()), readOnly(false) {
+AnyItem::AnyItem(const AnyItem& item) : readOnly(false) {
+	impl = AnyItem::blank().impl;
 	state = impl->createItem();
 	copy(item);
 	sanityCheck = getSanityCheckValue();
@@ -36,7 +41,7 @@ AnyItem::~AnyItem() {
 }
 
 AnyItem& AnyItem::toArray() {
-	if (impl == BlankItemImpl::instance() && readOnly) {
+	if (impl == AnyItem::blank().impl && readOnly) {
 		return *this;
 	}
 
@@ -58,7 +63,7 @@ std::vector<std::string> AnyItem::getKeys() const {
 }
 
 AnyItem& AnyItem::operator [](const std::string& key) {
-	if (impl == BlankItemImpl::instance() && !readOnly) {
+	if (impl == AnyItem::blank().impl && !readOnly) {
 		impl = DictionaryItemImpl::instance();
 		impl->deleteItem(state);
 		state = impl->createItem();
@@ -72,7 +77,7 @@ const AnyItem& AnyItem::operator [](const std::string& key) const {
 }
 
 void AnyItem::copy(const AnyItem& item) {
-	if (impl == BlankItemImpl::instance() && readOnly) {
+	if (impl == AnyItem::blank().impl && readOnly) {
 		return;
 	}
 
@@ -126,7 +131,7 @@ std::istream& operator>>(std::istream& stream, AnyItem& item) {
 }
 
 bool AnyItem::isBlank() const {
-	return impl == BlankItemImpl::instance();
+	return impl == AnyItem::blank().impl;
 }
 
 bool AnyItem::isValue() const {

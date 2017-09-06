@@ -21,6 +21,7 @@ class AnyItemImpl;
 class AnyItem {
 public:
 	AnyItem();
+	AnyItem(bool readonly);
 	AnyItem(AnyItemImpl* impl);
 	AnyItem(const AnyItem& item);
 	virtual ~AnyItem();
