@@ -131,7 +131,7 @@ std::istream& operator>>(std::istream& stream, AnyItem& item) {
 }
 
 bool AnyItem::isBlank() const {
-	return impl == AnyItem::blank().impl;
+	return readOnly;
 }
 
 bool AnyItem::isValue() const {
