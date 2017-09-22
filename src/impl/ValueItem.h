@@ -23,6 +23,9 @@ struct item_delete { static void destroy(T& item) {} };
 template<typename T>
 struct item_delete<T*> { static void destroy(T* item) { delete item; } };
 
+template<typename T>
+struct value_writer { static void write(std::ostream& out, const void* state) { out << *(T*)state; }};
+
 template <typename T>
 class ValueItemImpl : public AnyItemImpl {
 public:
@@ -103,9 +106,6 @@ template<typename T>
 inline void* any::ValueItemImpl<T>::getValue(void* state) const {
 	return state;
 }
-
-template<typename T>
-struct value_writer { static void write(std::ostream& out, const void* state) { out << *(T*)state; }};
 
 template<typename T>
 inline void any::ValueItemImpl<T>::write(std::ostream& out,
