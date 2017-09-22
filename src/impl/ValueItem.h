@@ -105,9 +105,12 @@ inline void* any::ValueItemImpl<T>::getValue(void* state) const {
 }
 
 template<typename T>
+struct value_writer { static void write(std::ostream& out, const void* state) { out << *(T*)state; }};
+
+template<typename T>
 inline void any::ValueItemImpl<T>::write(std::ostream& out,
 		const void* state) const {
-	out << *(T*)state;
+	value_writer<T>::write(out, state);
 }
 
 template<typename T>
