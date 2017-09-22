@@ -26,6 +26,7 @@ void ArrayItemImpl::deleteItem(void* state) const {
 
 AnyItem& ArrayItemImpl::getItem(const std::string& key,
 		void* state) const {
+	return AnyItem::blank();
 }
 
 const AnyItem& ArrayItemImpl::getItemConst(const std::string& key,
