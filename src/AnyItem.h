@@ -32,6 +32,8 @@ public:
 	T ptr() const;
 	template <typename T>
 	T& val() const;
+	template <typename T>
+	T& ref() const;
 	void remove(const std::string& key);
 	std::vector<std::string> getKeys() const;
 	bool isBlank() const;
@@ -127,6 +129,11 @@ inline T any::AnyItem::ptr() const {
 template<typename T>
 T& any::AnyItem::val() const {
 	return *static_cast<T*>(this->getValue());
+}
+
+template<typename T>
+T& any::AnyItem::ref() const {
+	return &ptr<T*>();
 }
 
 #include "AnyItemImpl.h"
