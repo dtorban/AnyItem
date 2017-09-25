@@ -133,7 +133,7 @@ T& any::AnyItem::val() const {
 
 template<typename T>
 T& any::AnyItem::ref() const {
-	return &ptr<T*>();
+	return *ptr<T*>();
 }
 
 #include "AnyItemImpl.h"
