@@ -137,7 +137,7 @@ inline const std::type_info& any::ValueItemImpl<T>::getType() const {
 
 template<typename T>
 inline any::AnyItemImpl* any::ValueItemImpl<T>::instance() {
-	static ValueItemImpl impl;
+	static ValueItemImpl<T> impl;
 	return &impl;
 }
 
