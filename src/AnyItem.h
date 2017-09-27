@@ -21,8 +21,6 @@ class AnyItemImpl;
 class AnyItem {
 public:
 	AnyItem();
-	AnyItem(bool readonly);
-	AnyItem(AnyItemImpl* impl);
 	AnyItem(const AnyItem& item);
 	virtual ~AnyItem();
 
@@ -65,6 +63,9 @@ private:
 	void pushValue(const AnyItem& item);
 
 protected:
+	AnyItem(bool readonly);
+	AnyItem(AnyItemImpl* impl);
+	
 	void* state;
 	AnyItemImpl* impl;
 	bool readOnly;
